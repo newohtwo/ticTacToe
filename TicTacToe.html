@@ -1,10 +1,12 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
 
-  <title>The HTML5 Herald</title>
+  <title>TicTacToe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
 
@@ -13,6 +15,61 @@
 </head>
 
 <body>
+  <div class="container">
+    <div class="settings">
+      <button id="myBtn" >settings</button>
+      <p>difficultiy</p>
+    </div>
+    <div class="score-board">
+      <p>you: 0</p>
+      <button class="reset-btn">Reset</button>
+      <p>pc: 0</p>
+    </div>
+
+    <div class="board-container">
+      <div class="board">
+        <div class="box-left"></div>
+        <div class="box"></div>
+        <div class="box-right"></div>
+        <div class="box-left"></div>
+        <div class="box"></div>
+        <div class="box-right"></div>
+        <div class="box-left" id="last-left"></div>
+        <div class="box" id="last-bottom"></div>
+        <div class="box-right" id="last-right"></div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  
+  <div class="modal-content">
+    <p>game mode</p>
+    <div class="settings-buttons">
+
+      <button class="btn" id="player-versus-player">1 v 1</button>
+      <div id="choice-box-player">
+        <p>choose your player</p>
+        <button class = "symbol">x</button>
+        <button class = "symbol">o</button>
+      </div>
+      <button class="btn" id="player-versus-computer">1 v P</button>
+      <div id="choice-box-computer">
+        <p>difficultiy</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
   <script src="js/scripts.js"></script>
 </body>
+
 </html>

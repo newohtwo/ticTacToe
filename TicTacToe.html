@@ -18,12 +18,11 @@
   <div class="container">
     <div class="settings">
       <button id="myBtn" >settings</button>
-      <p>difficultiy</p>
     </div>
     <div class="score-board">
-      <p>you: 0</p>
+      <p id = "player1"></p>
       <button class="reset-btn">Reset</button>
-      <p>pc: 0</p>
+      <p id = "player2"></p>
     </div>
 
     <div class="board-container">
@@ -49,19 +48,20 @@
   <!-- Modal content -->
   
   <div class="modal-content">
-    <p>game mode</p>
+    <p>game modes</p>
     <div class="settings-buttons">
 
       <button class="btn" id="player-versus-player">1 v 1</button>
-      <div id="choice-box-player">
-        <p>choose your player</p>
-        <button class = "symbol">x</button>
-        <button class = "symbol">o</button>
-      </div>
       <button class="btn" id="player-versus-computer">1 v P</button>
-      <div id="choice-box-computer">
-        <p>difficultiy</p>
-      </div>
+
+      <form id = "choice-box-computer">
+        <label for="game difficultiy">Choose a difficultiy</label>
+        <select name="difficultiy" id="difficultiy-options">
+          <option value="easy">easy</option>
+          <option value="hard">hard</option>
+          <option value="not good">not good</option>
+        </select>
+      </form>
     </div>
 
   </div>

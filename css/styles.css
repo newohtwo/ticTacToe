@@ -41,7 +41,7 @@ body{
     display: flex;
     justify-content: space-around;
     font-size: 34px;
-    border: 1px solid;
+    border: 1px solid gray;
     border-radius: 15px;
     
 }
@@ -62,12 +62,12 @@ body{
     left: 35%;
     min-width: 200px;
     grid-template-columns: repeat(3,1fr);
-    
 }
+
+
 .board-container{
     width: 100%;
-    height: calc(100% - 85px);
-    border: 2px solid;
+    height: calc(100% - 67px);
     
 }
 
@@ -84,17 +84,39 @@ body{
     border-right: 2px solid;
     border-bottom: 2px solid;
     background-color: wheat;
+    min-width: 120px;
+    min-height: 120px;
+
+    font-size: 40px;
+    text-align: center;
+    vertical-align: middle;
+    line-height:90px ;
+
 }
 
 .box{
     background-color: wheat;
     border-bottom: 2px solid;
+    min-width: 120px;
+    min-height: 120px;
+
+    font-size: 40px;
+    text-align: center;
+    vertical-align: middle;
+    line-height:90px ;
 }
 
 .box-right{
     background-color: wheat;
     border-left: 2px solid;
     border-bottom: 2px solid;
+    min-width: 120px;
+    min-height: 120px;
+
+    font-size: 40px;
+    text-align: center;
+    vertical-align: middle;
+    line-height:90px ;
 }
 
 
@@ -110,7 +132,11 @@ body{
 }
 
 
-
+#myBtn{
+  position: relative;
+  left: 10px;
+  top: 80px;
+}
 
 .container{
     position: relative;
@@ -202,30 +228,182 @@ body{
   }
 
 
-  #player-versus-player{
-
-  }
+  
   #player-versus-computer{
     position: relative;
     top: 40px;
   }
 
-  #choice-box-player{
-    position: relative;
-    top: 20px;
-    padding: 5px;
-    border: 1px solid black;
-    height: 90px;
-    width: 100%;
-  }
+ 
   #choice-box-computer{
     position: relative;
     top: 40px;
     padding: 5px;
-    border: 1px solid black;
-    height: 90px;
+    height: 70px;
     width: 100%;
   }
+
+
+
+
+
+/*phone sizes*/
+
+@media only screen and (max-width: 375px){
+  .board{
+    left: 8%;
+    height: 20vh;
+    width: 10vw;
+  }
+
+  .box-left{
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    background-color: wheat;
+    min-width: 90px;
+    min-height: 90px;
+
+    font-size: 40px;
+    text-align: center;
+    vertical-align: middle;
+    line-height:90px ;
+
+}
+
+.box{
+    background-color: wheat;
+    border-bottom: 2px solid;
+    min-width: 90px;
+    min-height: 90px;
+
+    font-size: 40px;
+    text-align: center;
+    vertical-align: middle;
+    line-height:90px ;
+}
+
+.box-right{
+    background-color: wheat;
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    min-width: 90px;
+    min-height: 90px;
+
+    font-size: 40px;
+    text-align: center;
+    vertical-align: middle;
+    line-height:90px ;
+  }
+
+
+  .score-board{
+    display: flex;
+    justify-content: space-around;
+    font-size: 19px;
+    border: 1px solid gray;
+    border-radius: 15px;
+    
+}
+.reset-btn{
+    position: relative;
+    
+    width: 15vw;
+    min-width: 100px;
+    font-size: 24px;
+}
+
+
+
+ /* The Modal (background) */
+ .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+ 
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  height: 40%;
+  width: 70%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+} 
+
+.settings-buttons{
+    
+    height: 100%;
+    width: 100%;
+    
+    
+    
+}
+.btn{
+    font-size: 35px;
+    height: 50px;
+    position: relative;
+    top: 20px;
+    width: 100%;
+
+}
+
+
+
+#player-versus-computer{
+  position: relative;
+  top: 40px;
+}
+
+
+#choice-box-computer{
+  position: relative;
+  top: 40px;
+  padding: 5px;
+  height: 70px;
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
   
 
 

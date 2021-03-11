@@ -13,15 +13,15 @@ const game = (() => {
     function _checkHorizontal(){
         if(currentGameState[0] === currentGameState[1] && currentGameState[0] === currentGameState[2]){
             _declareWinner(currentGameState[0]);
-            return;
+            return true;
         }
         if(currentGameState[3] === currentGameState[4] && currentGameState[3] === currentGameState[5]){
             _declareWinner(currentGameState[3]);
-            return;
+            return true;
         }
         if(currentGameState[6] === currentGameState[7] && currentGameState[6] === currentGameState[8]){
             _declareWinner(currentGameState[6]);
-            return;
+            return true;
         }
         
     }
@@ -30,15 +30,15 @@ const game = (() => {
     function _checkVertical(){
         if(currentGameState[0] === currentGameState[3] && currentGameState[0] === currentGameState[6]){
             _declareWinner(currentGameState[0]);
-            return
+            return true;
         }
         if(currentGameState[1] === currentGameState[4] && currentGameState[1] === currentGameState[7]){
             _declareWinner(currentGameState[1]);
-            return
+            return true;
         }
         if(currentGameState[2] === currentGameState[5] && currentGameState[2] === currentGameState[8]){
             _declareWinner(currentGameState[2]);
-            return
+            return true;
         }
         
     }
@@ -46,11 +46,11 @@ const game = (() => {
     function _checkDiagonal(){
         if(currentGameState[0] === currentGameState[4] && currentGameState[0] === currentGameState[8]){
             _declareWinner(currentGameState[0]);
-            return
+            return true;
         }
         if(currentGameState[2] === currentGameState[4] && currentGameState[2] === currentGameState[6] ){
             _declareWinner(currentGameState[2]);
-            return
+            return true;
         }
         
         
@@ -59,9 +59,10 @@ const game = (() => {
 
 
     function _checkWinContidion(){
-        _checkHorizontal();
-        _checkVertical();
-        _checkDiagonal();
+        if(_checkDiagonal() || _checkVertical() || _checkHorizontal()){
+            return true;
+        }
+        return false;
         
     }
 
@@ -69,6 +70,7 @@ const game = (() => {
         alert(winner + "wins");
         players.incScore(winner);
         _newRound();
+        
     }
 
     function _initArray(){
@@ -89,6 +91,16 @@ const game = (() => {
     },1000);
    }
 
+   function _checkForDraw(){
+    
+       if(currentGameState.filter(e => typeof(e) === "number").length === 0){
+           alert("its a Draw");
+           _newRound();
+           return true;
+       }
+       return false;
+   }
+
 
     function _resetGame(){
         currentGameState = _initArray();
@@ -104,10 +116,8 @@ const game = (() => {
     }
     
 
-    function startPlayerVsPlayer(node , index) {
-        if(turnsDone === 9 ){
-            alert("tecko");
-        }
+    function _startPlayerVsPlayer(node , index) {
+       
 
         if(turnFlag){
             node.textContent = players.getX()
@@ -120,13 +130,18 @@ const game = (() => {
         turnsDone++;
         
         
-        _checkWinContidion();
+        
+        if(!_checkWinContidion() && turnsDone === 10){
+            alert("tecko");
+            turnsDone = 0;
+            _newRound();
+        }
 
         //tofo figute how to work with algo
        // minimaxAi.aiMove();
     }
 
-    function difficultyAiSwitch (){
+    function _difficultyAiSwitch (){
         
         switch (aiDiffculty){
             case "easy":
@@ -147,22 +162,28 @@ const game = (() => {
 
     function _startPlayerVsAi(node,index){
         
-
+        
+        //player move
         node.textContent = players.getX();
         currentGameState[index] = node.textContent;
         
 
         turnsDone++;
-
-        let aiMoveIndex = difficultyAiSwitch();
-
-
-        console.log(aiMoveIndex+"ai move");
+        
+        
+        
+        //this is ai move 
+        let aiMoveIndex = _difficultyAiSwitch();
         currentGameState[aiMoveIndex] = "o";
         board.aiUiUpdate(aiMoveIndex);
         
+        
+        if(!_checkWinContidion()){
+            _checkForDraw();
+        }   
 
-        _checkWinContidion();
+        
+        
     }
 
     function _setAiDiffculty(diff){
@@ -171,7 +192,7 @@ const game = (() => {
 
     //public method and proprties
     return {
-      startPvP: startPlayerVsPlayer,
+      startPvP: _startPlayerVsPlayer,
       resetGame:_resetGame,
       getCurrentGameStat : _getCurrentGameStat,
       startPve: _startPlayerVsAi,
@@ -182,7 +203,6 @@ const game = (() => {
   })();
 
   
-
   const players = (() =>{
     const _playerX = "x";
     const _playerO = "o";
@@ -204,7 +224,12 @@ const game = (() => {
 
     function _incScore (playerSign){
         playerSign === "x" ? _player1Score+=1 : _player2Score+=1;
-        settings.updateScore();
+
+        if(board.getBoardMode()){
+            settings.updateScore();
+        }else{
+            settings.updateScoreVsAi();
+        }
 
         if(_player1Score === 5){
             alert("game finished the winner is x");
@@ -227,10 +252,6 @@ const game = (() => {
     }
 
   })();
-
-
-
-
 
 
 //moudle for gameboard wher most of the function regarding it will be stored
@@ -340,9 +361,6 @@ const board = (() =>{
 
 
 
-
-
-
 //evertything related to game mode choice and settings ui
 const settings = (() =>{
     'use strict';
@@ -361,6 +379,8 @@ const settings = (() =>{
     let player2Score = document.querySelector("#player2");
 
     let easyDifficultyVsAi = document.querySelector("#easyDifBtn");
+    let mediumDifficultyVsAi = document.querySelector("#mediumDifBtn");
+    let hardDifficultyVsAi = document.querySelector("#hardDifBtn");
     
 
     function _reset(){
@@ -372,6 +392,14 @@ const settings = (() =>{
         
     }
 
+    function _startGameVsAi(diffculty){
+        board.setBoardMode(false);
+        modal.style.display = "none";
+        background.style.filter = "none";
+        _reset();
+        game.setAiDiffculty(diffculty);
+    }
+
     (function buttonInit(){
 
 
@@ -381,11 +409,12 @@ const settings = (() =>{
 
         //choose a game mode of pvp
         playerVsPlayer.onclick = function(){
+            board.setBoardMode(true);
             _updateScore();
             modal.style.display = "none";
             background.style.filter = "none";
             _reset();
-            board.setBoardMode(true);
+            
 
         }
 
@@ -402,17 +431,15 @@ const settings = (() =>{
         }
         //easy difficulty button  => player does the first move than ai
         easyDifficultyVsAi.onclick = function(){
-            
-            modal.style.display = "none";
-            background.style.filter = "none";
-            game.resetGame();
-            board.resetBoard();
-            _updateScoreVsAi();
-            board.setBoardMode(false);
+            _startGameVsAi("easy"); 
+        }
 
+        mediumDifficultyVsAi.onclick = function(){
+            _startGameVsAi("medium"); 
+        }
 
-            game.setAiDiffculty("easy"); //implamented the new difficulty
-            
+        hardDifficultyVsAi.onclick = function(){
+            _startGameVsAi("hard"); 
         }
 
         
@@ -427,6 +454,7 @@ const settings = (() =>{
     }
 
     function _updateScore(){
+        
         player1Score.textContent = "player 1: "+players.getP1Score();
         player2Score.textContent = "player 2: "+players.getP2Score();
     }
@@ -461,17 +489,11 @@ const settings = (() =>{
 
     return{
         updateScore:_updateScore,
+        updateScoreVsAi:_updateScoreVsAi,
     }
 
 
 })();
-
-
-
-
-
-
-
 
 
 const minimaxAi = (function() {
@@ -479,12 +501,6 @@ const minimaxAi = (function() {
     //todo make the human and pc vars to change depending on what is choosen by the user
     var huPlayer = "x";
     var aiPlayer = "o";
-
-
-    //var origBoard = ["O",1 ,"X","X",4 ,"X", 6 ,"O","O"];
-    //var origBoard = [0,1 ,2,3,4 ,5, 6 ,7,8];
-
-    
 
 var fc = 0;
 
@@ -515,21 +531,15 @@ function _hardDif(){
 //TODO create radom placement generated , than use a random number perctange to choose between a good decision or a random one
 function randomMove(){
     let tempArr = game.getCurrentGameStat().filter(e => typeof(e) === "number");
-    console.log(tempArr);
     let randomIndex = Math.floor(Math.random() * tempArr.length);
-    let randomNumberFromArr = tempArr[randomIndex];
-    return game.getCurrentGameStat.indexOf(randomNumberFromArr);
+    return tempArr[randomIndex];
 }
 
 
 
 function _bestMove(){
     let move = minimax(game.getCurrentGameStat(), aiPlayer);
-    console.log("best move i " + move.index);
-    console.log("function calls: " + fc);
     return move.index;
-    
-    
 }
 
 // the main minimax function

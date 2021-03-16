@@ -406,7 +406,7 @@ const settings = (() =>{
         background.style.filter = "none";
         _reset();
         game.setAiDiffculty(diffculty);
-        icons[1].src = "/icons/robot.png";
+        icons[1].src = "icons/robot.png";
 
     }
 
@@ -424,7 +424,7 @@ const settings = (() =>{
             modal.style.display = "none";
             background.style.filter = "none";
             _reset();
-            icons[1].src = "/icons/user.png";
+            icons[1].src = "icons/user.png";
             
 
         }

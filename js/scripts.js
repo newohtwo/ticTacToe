@@ -23,7 +23,7 @@ const game = (() => {
             _declareWinner(currentGameState[6]);
             return true;
         }
-        
+        return false;
     }
 
 
@@ -40,7 +40,7 @@ const game = (() => {
             _declareWinner(currentGameState[2]);
             return true;
         }
-        
+        return false;
     }
 
     function _checkDiagonal(){
@@ -53,7 +53,7 @@ const game = (() => {
             return true;
         }
         
-        
+        return false;
     }
 
 
@@ -62,6 +62,7 @@ const game = (() => {
         if(_checkDiagonal() || _checkVertical() || _checkHorizontal()){
             return true;
         }
+
         return false;
         
     }
@@ -121,6 +122,7 @@ const game = (() => {
 
         if(turnFlag){
             node.textContent = players.getX()
+        
         }else{
             node.textContent = players.getO();
         }
@@ -166,6 +168,8 @@ const game = (() => {
         //player move
         node.textContent = players.getX();
         currentGameState[index] = node.textContent;
+        
+        
         
 
         turnsDone++;
@@ -335,6 +339,8 @@ const board = (() =>{
 
         let node = _boardNodes[index];
         node.textContent = "o";
+        
+        
         _disableNodeClick(node);
     }
 
@@ -381,6 +387,8 @@ const settings = (() =>{
     let easyDifficultyVsAi = document.querySelector("#easyDifBtn");
     let mediumDifficultyVsAi = document.querySelector("#mediumDifBtn");
     let hardDifficultyVsAi = document.querySelector("#hardDifBtn");
+
+    let icons = document.querySelectorAll(".icon");
     
 
     function _reset(){
@@ -388,7 +396,7 @@ const settings = (() =>{
         game.resetGame();
         board.resetBoard();
         board.getBoardMode() ? _updateScore() : _updateScoreVsAi();
-        console.log("in reset btn func " + board.getBoardMode());
+        
         
     }
 
@@ -398,6 +406,8 @@ const settings = (() =>{
         background.style.filter = "none";
         _reset();
         game.setAiDiffculty(diffculty);
+        icons[1].src = "/icons/robot.png";
+
     }
 
     (function buttonInit(){
@@ -414,6 +424,7 @@ const settings = (() =>{
             modal.style.display = "none";
             background.style.filter = "none";
             _reset();
+            icons[1].src = "/icons/user.png";
             
 
         }
@@ -449,14 +460,15 @@ const settings = (() =>{
 
 
     function _updateScoreVsAi(){
-        player1Score.textContent = "player 1: "+players.getP1Score();
-        player2Score.textContent = "pc 2: "+players.getP2Score();
+        player1Score.textContent = "Player: "+players.getP1Score();
+        player2Score.textContent = "Pc: "+players.getP2Score();
+       
     }
 
     function _updateScore(){
         
-        player1Score.textContent = "player 1: "+players.getP1Score();
-        player2Score.textContent = "player 2: "+players.getP2Score();
+        player1Score.textContent = "Player 1: "+players.getP1Score();
+        player2Score.textContent = "Player 2: "+players.getP2Score();
     }
 
 
@@ -476,14 +488,6 @@ const settings = (() =>{
 
         }
 
-        /*
-        window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-            background.style.filter = "none";
-            }
-        } 
-        */
 
     }());
 

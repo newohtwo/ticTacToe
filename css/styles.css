@@ -59,8 +59,9 @@ body{
     display:grid;
     height: 35vh;
     width: 25vw;
-    left: 35%;
-    min-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 250px;
     grid-template-columns: repeat(3,1fr);
 }
 
@@ -73,7 +74,7 @@ body{
 
 .board :hover{
     cursor: pointer;
-    background-color: rgba(0, 0, 255, 0.336);
+    background-color: rgba(0, 0, 255, 0.100);
     box-shadow: black;
     -webkit-box-shadow: -2px -1px 6px 0px rgba(48, 50, 50, 0.8);
     -moz-box-shadow:    -2px -1px 6px 0px rgba(48, 50, 50, 0.8);
@@ -83,7 +84,7 @@ body{
 .box-left{
     border-right: 2px solid;
     border-bottom: 2px solid;
-    background-color: wheat;
+    background-color: rgba(255, 255, 255, 0.755);
     min-width: 120px;
     min-height: 120px;
 
@@ -95,7 +96,7 @@ body{
 }
 
 .box{
-    background-color: wheat;
+    background-color: rgba(255, 255, 255, 0.755);
     border-bottom: 2px solid;
     min-width: 120px;
     min-height: 120px;
@@ -107,7 +108,7 @@ body{
 }
 
 .box-right{
-    background-color: wheat;
+    background-color: rgba(255, 255, 255, 0.755);
     border-left: 2px solid;
     border-bottom: 2px solid;
     min-width: 120px;
@@ -134,8 +135,9 @@ body{
 
 #myBtn{
   position: relative;
-  left: 10px;
-  top: 80px;
+  left: 5px;
+  top:5px;
+  
 }
 
 .container{
@@ -145,9 +147,20 @@ body{
     height: 75vh;
     left: 5vw;
     min-width: 320px;
-    background-color: wheat;
+    background-color: rgba(128, 128, 128, 0.145);
     box-sizing: border-box;
     border-radius: 15px;
+}
+
+
+.score-title{
+  font-family: 'Russo One', sans-serif;
+}
+
+
+.icon{
+  width: 40px;
+  height: 40px;
 }
 
 
@@ -191,7 +204,7 @@ body{
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    height: 40%;
+    height: 45%;
     width: 20%; /* Could be more or less, depending on screen size */
   }
   
@@ -215,9 +228,8 @@ body{
       height: 100%;
       width: 100%;
       
-      
-      
   }
+
   .btn{
       font-size: 35px;
       height: 50px;
@@ -237,10 +249,41 @@ body{
  
   #choice-box-computer{
     position: relative;
-    top: 40px;
+    top: 80px;
     padding: 5px;
-    height: 70px;
+    height: 100%;
     width: 100%;
+    
+    
+  }
+
+  #easyDifBtn{
+    position: relative;
+    color: green;
+    font-size: 25px;
+    width: 100%;
+    height: 40px;
+    top: 10px;
+    
+  
+  }
+  #mediumDifBtn{
+    position: relative;
+    color:rgb(255, 255, 0);
+    font-size: 25px;
+    width: 100%;
+    height: 40px;
+    top: 20px;
+    
+  }
+  #hardDifBtn{
+    position: relative;
+    color: red;
+    font-size: 25px;
+    width: 100%;
+    height: 40px;
+    top: 30px;
+
   }
 
 
@@ -251,18 +294,22 @@ body{
 
 @media only screen and (max-width: 375px){
   .board{
-    left: 8%;
+    position: relative;
+    margin-left: 0px;
+    margin-right: 0px;
+    left: 10%;
     height: 20vh;
     width: 10vw;
   }
 
   .box-left{
+   
     border-right: 2px solid;
     border-bottom: 2px solid;
-    background-color: wheat;
+    background-color: rgba(255, 255, 255, 0.755);
     min-width: 90px;
     min-height: 90px;
-
+    
     font-size: 40px;
     text-align: center;
     vertical-align: middle;
@@ -271,7 +318,7 @@ body{
 }
 
 .box{
-    background-color: wheat;
+    background-color: rgba(255, 255, 255, 0.755);
     border-bottom: 2px solid;
     min-width: 90px;
     min-height: 90px;
@@ -283,7 +330,7 @@ body{
 }
 
 .box-right{
-    background-color: wheat;
+    background-color: rgba(255, 255, 255, 0.755);
     border-left: 2px solid;
     border-bottom: 2px solid;
     min-width: 90px;
@@ -299,7 +346,7 @@ body{
   .score-board{
     display: flex;
     justify-content: space-around;
-    font-size: 19px;
+    font-size: 14px;
     border: 1px solid gray;
     border-radius: 15px;
     
@@ -307,9 +354,9 @@ body{
 .reset-btn{
     position: relative;
     
-    width: 15vw;
-    min-width: 100px;
-    font-size: 24px;
+    
+    min-width: 80px;
+    font-size: 19px;
 }
 
 
@@ -333,7 +380,7 @@ body{
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  height: 40%;
+  height: 50%;
   width: 70%; /* Could be more or less, depending on screen size */
 }
 
@@ -351,18 +398,11 @@ body{
   text-decoration: none;
   cursor: pointer;
 } 
+ 
 
-.settings-buttons{
-    
-    height: 100%;
-    width: 100%;
-    
-    
-    
-}
 .btn{
     font-size: 35px;
-    height: 50px;
+    height: 40px;
     position: relative;
     top: 20px;
     width: 100%;
@@ -385,8 +425,10 @@ body{
   width: 100%;
 }
 
-
-
+.icon{
+  width: 20px;
+  height: 20px;
+}
 
 
 

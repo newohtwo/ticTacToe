@@ -68,7 +68,7 @@ const game = (() => {
     }
 
     function _declareWinner(winner){
-        alert(winner + "wins");
+        alert(winner + " - wins");
         players.incScore(winner);
         _newRound();
         
@@ -83,7 +83,7 @@ const game = (() => {
         
     };
 
-
+    
    function _newRound(){
     setTimeout(function(){
        currentGameState =_initArray();
